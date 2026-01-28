@@ -102,14 +102,14 @@ It consists of a 2DEG in a perpendicular magnetic field $B$ that brings it to th
 \cite{Roulleau2008,Heiblum2003}. The electronic propagation entirely takes place inside the chiral edge states; the figure shows the edge state originating from contact $0$, the counter propagating one originating from contact $1$ is not shown, nor is the one from $2$. Two quantum point contacts serve as beam splitters for the chiral edge states. A voltage pulse is sent to contact $0$ and the transmitted (resp. reflected) currents $I_1$ (resp. $I_2$) are measured in contact $1$ (resp. $2$)
 
 In DC, the behaviour of such a MZI is well understood: the edge state originating from contact $0$ is split at the first QPC (A) into a short lower path of length $L_l$ and a long upper path of length $L_u$ that 
-goes around the whole inner part of the ring. The two paths are recombine at QPC B and continue t oeither contact 1 (which we call the transmitted path) or to contact $2$ (which we call the reflected path). We call $d_{\rm A}$ (resp. $D_{\rm A}=|d_{\rm A}|^2$) the transmission amplitude (resp. probability) of QPC A
+goes around the whole inner part of the ring. The two paths are recombine at QPC B and continue to either contact 1 (which we call the transmitted path) or to contact $2$ (which we call the reflected path). We call $d_{\rm A}$ (resp. $D_{\rm A}=|d_{\rm A}|^2$) the transmission amplitude (resp. probability) of QPC A
 and $r_{\rm A}$ (resp. $R_{\rm A}=1-D_{\rm A}$) the corresponding reflection amplitude (resp. probability) with similar notations for QPC B. The total transmission amplitude $d_{\rm tot}$ to contact $1$ (up to a global phase) is given by the interference of the two paths:
 \begin{equation}
   d_{\rm tot} = d_{\rm A }d_{\rm B }+ r_{\rm A }r_{\rm B }e^{i\Phi} 
 \end{equation}
 where
 \begin{equation}
-    \Phi = k_F (L_u-L_d) = \frac{BS}{\hbar/e}
+    \Phi = k_F (L_u-L_d) + \frac{BS}{\hbar/e}
 \end{equation}
 and $k_F$ is the Fermi momentum in the edge state and $S$ the surface of the inner ring (more precisely the surface enclosed by the two edge states). It follows that the differential conductance given by the Landauer formula $dI_1/dV_0= e^2/h |d_{\rm tot}|^2$ is expected to present oscillations with the magnetic field or a side gate that changes the surface $S$ of the interfering loop,
 \begin{align}
@@ -124,25 +124,28 @@ Such electronic interference effects have been repeatedly observed experimentall
 Let us now consider what happens when we send a voltage pulse of duration $\tau_P$ and amplitude $V_P$ described by $V_0(t)$.
 A typical form that we will consider is a Gaussian pulse,
 \begin{equation}
+\label{eq:gauss_pulse}
     V_0(t) = V_P e^{-t^2/\tau_P^2}
 \end{equation}
 but Lorentzian pulse (also known as Levitons) are also very popular.
 For the purpose of this work, the precise shape is mostly irrelevant.
 what matters are $\tau_P$ and $V_P$. We are interested in the total number $n_1$ of transmitted electron,
+
 \begin{equation}
-    n_1 \equiv \frac{1}{e} \int dt I_1(t). 
-\end{equation} 
+    n_1 \equiv \frac{1}{e} \int_{-\infty}^{\infty} dt\, I_1(t).
+\end{equation}
+ 
 In the (adiabatic) limit of very slow pulses (large values of $\tau_P$ so that $\hbar/\tau_P$ is the smallest energy scale in the problem), the Landauer formula applies at all times,
 \begin{equation}
     I_1(t) = \frac{e^2}{h} D_{\rm tot} V_0(t)
 \end{equation}
 and therefore,
 \begin{equation}
-    n_1 =  D_{\rm tot} \int dt \frac{eV_0(t)}{h}.
+    n_1 =  D_{\rm tot} \int_{-\infty}^{\infty} dt \frac{eV_0(t)}{h}.
 \end{equation}
 The total number of electrons $\bar n$ sent by the pulse is ($D_{\rm tot}=1$),
 \begin{equation}
-    \bar n =  \int dt \frac{eV_0(t)}{h}
+    \bar n =  \int_{-\infty}^{\infty} dt \frac{eV_0(t)}{h}
 \end{equation}
 so that in the adiabatic limit we get the relatively boring result that
 $n_t = D_{\rm tot} \bar n$. For our Gaussian pulse, $\bar n$ is simply given by,
@@ -162,6 +165,7 @@ i.e. that in addition to the linear term, $n_1$ actually \emph{oscillates} with 
 To understand the origin of Eq.\eqref{eq:shortpulses}, we need to describe what happens in the lead, at the place of the potential drop, before the interferometer. Before the pulse is applied, the electronic wavefunction of the edge state in the lead is a simple plane wave 
 $\psi(x,t)= e^{ikx-iEt}$ where $x$ is the one-dimensional coordinate along the edge state, $k$ the momentum and $E=E(k)$ the corresponding energy. Supposing that the voltage drop happens at $x=0$, during the duration of the pulse, the rear of the plane wave ($x<0$, inside the lead) acquires a phase
 \begin{equation}
+\label{eq:pulse_phase}
 \phi(t) = \int_{-\infty}^t \frac{eV_0(u)}{\hbar}du
 \end{equation}
 with respect to the front ($x>0$ on the device side). The wave function thus becomes
@@ -189,8 +193,7 @@ $e^{ikx-iEt -i2\pi\bar n}$. (a) Initially, the edge state coming from contact 0 
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{A time-dependent mean field treatment of electron-electron
-interactions in a MZI.}
+\section{A time-dependent mean field treatment of interactions in a Mach-Zehnder Interferometer.}
 \label{sec:model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -200,24 +203,24 @@ In this section, we describe our discrete model, our numerical technique and dis
 In this section we describe the discrete model used in the simulations.
 Our starting point is a 2DEG (as typically found at an interface of GaAs and GaAlAs) described at the effective mass approximation level,
 \begin{equation}
-H_{\rm 2DEG} = \frac{1}{2m^*} \left( \mathbf{P} -e\mathbf{A}\right)^2 + V[\vec r].
+H_{\rm 2DEG} = \frac{1}{2m^*} \left( \mathbf{P} -e\mathbf{A}\right)^2 + V(\vec r).
 \end{equation}
-We dicretize the problem on a rectangular grid with a lattice parameter $a$ using a three point stencil for the Laplacian ($\partial_{x}^2\psi \approx [\psi(x-a) -2\psi(x) +\psi(x+a)]/a^2$). The perpendicular magnetic field is described using Peirls 
+where, m* is the effective electron mass, $\mathbf{P}$ is the momenta, e is the electronic charge, $\mathbf{A}$ is the vector potential and $V(\vec r)$ is the onsite potential on site $\vec r$. We discretize the problem on a rectangular grid with a lattice parameter $a$ using a three point stencil for the Laplacian ($\partial_{x}^2\psi \approx [\psi(x-a) -2\psi(x) +\psi(x+a)]/a^2$). The perpendicular magnetic field is described using Peierls 
 substitution in the Landau gauge. The Coulomb interaction is treated through a contact Hubbard like interaction that we treat at the mean-field level. This is the self-consistent time dependent Hartree-Fock approximation which, we recall, is more accurate than its static counterpart. In particular, it captures the Random Phase Approximation (RPA) \cite{Negele2018}. We arrive at
 \begin{equation}
 \hat H =\sum_{ij,\sigma}
 H_{ij}(t) c_{i\sigma}^{\dagger}c_{j\sigma}+
-\sum_{i\sigma} V_i c_{i\sigma}^{\dagger}c_{i\sigma}
+\sum_{i\sigma} V_i c_{i\sigma}^{\dagger}c_{i\sigma}+
 \sum_{i\sigma} U_{i\sigma}(t) c_{i\sigma}^{\dagger}c_{i\sigma}
 \end{equation}
 where $i=(i_x,i_y)$ is a point in the grid and $c_{i\sigma}$ 
-(resp. $c^\dagger_{i\sigma}$) is the usual fermionic operator that destroys a particle at site $i$ with spin $\sigma$ (resp. crate). The external potential is $V_i \equiv V[\vec r=i_x a,i_y a)]$. The mean-field interaction terms read,
+(resp. $c^\dagger_{i\sigma}$) is the usual fermionic operator that destroys a particle at site $i$ with spin $\sigma$ (resp. create). The external potential is $V_i \equiv V[\vec r=i_x a,i_y a)]$. The mean-field interaction terms read,
 \begin{equation}
-U_{i\sigma} = U [\rho_{i\sigma}(t) - \rho_{i\sigma}(t=0) 
+U_{i\sigma} = U [\rho_{i\sigma}(t) - \rho_{i\sigma}(t=0)] 
 \end{equation}
 with the self-consistent condition,
 \begin{equation}
-\rho_i(t) \equiv  \langle c_{i \bar \sigma}^{\dagger}c_{i\bar \sigma}\rangle.
+\rho_i(t) \equiv  \langle c_{i \bar \sigma}^{\dagger}(t)c_{i\bar \sigma}(t)\rangle.
 \end{equation}
 Here $\bar\sigma=\uparrow$ (resp. $\downarrow$) when $\sigma=\downarrow$ (resp. $\uparrow$).
 In practice, we do not consider the role of the Zeeman field or exchange energy, so that the spin degree of freedom is purely spectator and from now on we drop the spin index. Note that
@@ -234,14 +237,14 @@ through a $a \times a$ plaquette in unit of the quantum of flux. At the interfac
 \forall j\in \text{MZI}, 
 H_{ij}\rightarrow H_{ij}e^{-i\phi(t)}.
 \end{equation}
-For our Gaussian voltage pulse, we have
+
+\pk{For our Gaussian voltage pulse, the acquired phase $\phi(t)$ is from Eq.(\ref{eq:pulse_phase}), where $V_{o}$ is defined using Eq.(\ref{eq:gauss_pulse}) gives,}
+
 \begin{equation}
 \phi(t) = \frac{V_P\tau_P\sqrt{\pi}}{2}\left[1 + \text{erf}(t/\tau_P)\right]
 \end{equation}
-where the voltage $V_P$ is measured in unit of $\gamma$ and the time $\tau_P$
-in unit of $1/\gamma$.
-The external potential $V_i$ is zero except in the QPC regions where it smoothly
-interpolates between $V_i=V_A$ (resp. $V_B$) for $i$ at the center of QPC A (resp. QPC B)
+
+where, the voltage $V_P$ is measured in unit of $\gamma$ and the time $\tau_P$ in unit of $\hbar/\gamma$, setting $\hbar$ = 1. The external potential $V_i$ is zero except in the QPC regions where it smoothly interpolates between $V_i=V_A$ (resp. $V_B$) for $i$ at the center of QPC A (resp. QPC B)
 to $V_i=0$ away from the QPC. The decay of the potential is chosen so that it is smooth with respect to the Fermi wave length $\lambda_F= 2\pi/k_F$. Our dispersion relation is
 $E(\mathbf{k}) = 2\gamma \left[\cos (k_xa) +\cos (k_ya) \right]$.
 
@@ -255,7 +258,7 @@ $l_B/a= 1/\sqrt{\phi_a} \approx 1.51$ and a cyclotron energy
 $\hbar\omega_c/\gamma = 2\phi_a \approx 0.88$.
 
 For a discretization parameter $a=13$ nm, the simulation correspond to a sample of
-realistic size $2.6\mu$m $\times 1.3 \mu$m. The width is limited to $W= 130$ nm for efficiency purpose but this is sufficient for the two counter propagating edge states to propagate freely without unwanted  back scattering. We get $\gamma = 3.3 $ meV and the electronic density corresponds to $n_s = 0.75 \ 10^{15}/m^2$, a typical value for GaAs/GaAlAs 2DEGs (on the low side). It corresponds to $\lambda_F \sim 91\text{ nm}$. The externally applied magnetic field is $B=1.71$ T which corresponds to magnetic length
+realistic size $2.6\mu$m $\times 1.3 \mu$m. The width is limited to $W= 130$ nm for efficiency purpose but this is sufficient for the two counter propagating edge states to propagate freely without unwanted  back scattering. We get $\gamma = 3.3 $ meV and the electronic electronic density corresponds to $n_s = 0.75 \ 10^{15} m^{-2}$, a typical value for GaAs/GaAlAs 2DEGs (on the low side). It corresponds to $\lambda_F \sim 91\text{ nm}$. The externally applied magnetic field is $B=1.71$ T which corresponds to magnetic length
 $l_{B}=19$ nm and a cyclotron frequency of $E_{c}=\hbar\omega_{c}=2.91$
 meV.
 
@@ -265,11 +268,11 @@ a site gives rise to a raise of on site energy $\delta U =\epsilon a^2/(de^2)\de
 \begin{equation}
 U = \frac{2m^* e^2 d}{\epsilon\hbar^2}
 \end{equation}   
-for $d= 10$nm, a typical experimental value, we obtain $U\approx 25$ which gives us the order of magnitude of $U$ we should have in mind.
+for $d= 10$ nm, a typical experimental value, we obtain $U\approx 25$ which gives us the order of magnitude of $U$ we should have in mind.
 
 \begin{figure}[H]
 \centering\includegraphics[width=\linewidth]{Plots/MZ-DC/MZ_sample_model.pdf}
-\caption{\label{fig:model} Tigh-binding models considered in this work.
+\caption{\label{fig:model} Tight-binding models considered in this work.
 (a) A quasi-one dimensional wire connected to two semi-infinite electrodes 0 and 1.
 Width: $W=10$ sites, length: $L=200$.
 (b) a Quantum Point Contact (QPC) connected to three electrodes 0, 1 and 2.
@@ -286,15 +289,17 @@ $17 000$ sites. The different insets are zoom into different regions.
 To solve the model, we use the self-consistent module of the Tkwant package \cite{Kloss2021,Tkwant2021} that has been developed by some of us. We refer to the Tkwant documentation for details of how the system of equation is solved. First, the scattering states $\Psi_{\alpha E}$ of the problems are calculated (before the pulse is applied) using the Kwant package \cite{Groth2014} which itself uses 
 the technique described in \cite{Xavier2024}.
 \begin{equation}
-\sum_j [H_{ij} \Psi_{\alpha E}(j) +V_i \Psi_{\alpha E}(i)= E \Psi_{\alpha E}(i)
+\sum_j [H_{ij} \Psi_{\alpha E}(j)] +V_i \Psi_{\alpha E}(i)= E \Psi_{\alpha E}(i)
 \end{equation}
 for all open modes $\alpha$ and $N_E$ different values of energy that span all the  
 occupied part of the lead bands $E\in [-4\gamma,E_F]$ (here a single band is occupied as we work within the lowest landau level, see the section on the wire).
 Second, we solve $N_E$ Schrodinger equations self-consistently in parallel,
-\begin{equation}
+\begin{multline}
 i\partial_t \Psi_{\alpha E}(i,t) =
-\sum_j [H_{ij} \Psi_{\alpha E}(j,t) +V_i \Psi_{\alpha E}(i,t) + U_i (t) \Psi_{\alpha E}(i,t)
-\end{equation}
+\sum_j \bigl[ H_{ij} \Psi_{\alpha E}(j,t) \bigr]
++ V_i \Psi_{\alpha E}(i,t) \\
++ U_i(t)\, \Psi_{\alpha E}(i,t)
+\end{multline}
 where $\Psi_{\alpha E}(i,t=0)=\Psi_{\alpha E}(i)$ and $U_i(t) = U [\rho_i(t) - \rho_i(0)]$
 with
 \begin{equation}
@@ -304,20 +309,20 @@ with
 where $f_\alpha(E)$ is the Fermi function in lead $\alpha$ (here we work at zero temperature and all leads share the same Fermi energy). Tkwant solves this problem using a prediction-correction scheme \cite{Kloss2021} that takes advantage of the fact that $U_i(t)$ has
 a much slower evolution than $\Psi_{\alpha E}(i,t)$.
 
-A typical simulation shown in this manuscript corresponds to the self-consisten solution of
+A typical simulation shown in this manuscript corresponds to the self-consistent solution of
 $N_E \approx 500$ Schrodinger equations in parallel, each of them containing a total of
-$17,050$ lattice sites for the full Mach-Zehnder.
+$17050$ lattice sites for the full Mach-Zehnder.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A comment on current conservation and gauge invariance}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In this section, we comment on the importance of treating electron-electron interaction
-at \emph{some} level when dealing with time-dependent phenomena, even when the system under consideration, here a relatively high density 2DEG, is weakly correlated. In a 2DEG, the strength of electron-electron interactions is  measured by the dimensionless parameter $r_s=m^*e^2/(4\pi\epsilon\hbar^2\sqrt{\pi n_s})$ which is the ratio of the typical electrostatic energy over the kinetic energy. The system starts to be correlated for $r_s>10$ with the transition to the Wigner cristal around $r_s=30$. With our parameters $r_s\approx 2$ which is well within the Fermi liquid regime and typical of a GaAs/GaAlAs hetetostructure.
+at \emph{some} level when dealing with time-dependent phenomena, even when the system under consideration, here a relatively high density 2DEG, is weakly correlated. In a 2DEG, the strength of electron-electron interactions is  measured by the dimensionless parameter $r_s=m^*e^2/(4\pi\epsilon\hbar^2\sqrt{\pi n_s})$ which is the ratio of the typical electrostatic energy over the kinetic energy. The system starts to be correlated for $r_s>10$ with the transition to the Wigner crystal around $r_s=30$. With our parameters $r_s\approx 2$ which is well within the Fermi liquid regime and typical of a GaAs/GaAlAs heterostructure.
 
 Yet, one should remember that at equilibrium the system is essentially neutral. As soon as one starts to, say, send a voltage pulse inside the system some extra charge will propagate within the 2DEG carrying an important amount of electrostatic energy. This charge will be screened in one way or another either by the 2DEG itself or by surrounding metallic elements in e.g. the electrostatic gates. Let us consider the charge conservation equation,
-\begin{equation}
-\frac{\partial \rho_i}{\partial t} = \sum_{\langle ij \rangle} I_{ij}
+\begin{equation}{
+\frac{\partial \rho_i}{\partial t} = \sum_{j} I_{ij}}
 \end{equation}
 where $\rho_i = \langle c^\dagger_{i}c_{i}\rangle$ is the charge on 
 site $i$ and $I_{ij} = -2\text{Im} [ H_{ij} \langle c^\dagger_{i}c_{j}\rangle]$ is the current going from site $j$ to site $i$. This current term is the discrete version of the divergence of a current density 
@@ -330,13 +335,13 @@ Remembering Gauss law, the appearance of the term $\partial \rho_i/\partial t$ m
 i.e. a displacement current $\partial \textbf{E}/\partial t$ adds on to the particle current $\textbf{I}\rightarrow \textbf{I} + \partial \textbf{E}/\partial t$ in order to screen the charge. This displacement current is the key ingredient that is missing in the non-interacting theory.
 
 A dual way to look at the same problem is through gauge invariance. Suppose that one raises the electric potential of the system \emph{everywhere} in the system (i.e. in the lead 
-\emph{and} in the MZI) by a pulse $V(t)$. Then it is trivial to observe that this pulse can be "gauged out" by redefining the wave function as 
+\emph{and} in the MZI) by a pulse $V(t)$. Then it is trivial to observe that this pulse can be ``gauged out" by redefining the wave function as 
 \begin{equation}
 \psi_{\alpha E}(i,t) = e^{-i\int_0^t du V(u)} \bar \psi_{\alpha E}(i,t)
 \end{equation}
-where $\bar \psi_{\alpha E}(i,t)$ obeys the Schrodinger equaiton without the time dependent term. In other word if one send a voltage pulse everywhere, it does nothing. In the non-interacting version of our model however, we have supposed implicitly that the electric potential of the MZI is fixed as if the potential difference (in an actual experiment only potential \emph{differences} could be applied between the electrode and the MZI itself. In reality, however, this potential can only be applied between different electrodes or between electrodess and electrostatic gates. It follows that the electric potential inside the MZI must be allowed to vary in time to restore the correct physical behaviour.
+where $\bar \psi_{\alpha E}(i,t)$ obeys the Schrodinger equation without the time dependent term. In other word if one send a voltage pulse everywhere, it does nothing. In the non-interacting version of our model however, we have supposed implicitly that the electric potential of the MZI is fixed as if the potential difference (in an actual experiment only potential \emph{differences} could be applied between the electrode and the MZI itself. In reality, however, this potential can only be applied between different electrodes or between electrodes and electrostatic gates. It follows that the electric potential inside the MZI must be allowed to vary in time to restore the correct physical behavior.
 
-In short, in order to get a physically coherent picture, the electrostatic of the ptoblem must be respected. In a discrete model this amounts to introduce a capacitance matrix 
+In short, in order to get a physically coherent picture, the electrostatic of the problem must be respected. In a discrete model this amounts to introduce a capacitance matrix 
 $C_{ij}$ with $\sum_j C_{ij} U_j(t) = \rho_i(t)$. The self-consistent time dependent Hartree-Fock approximation used in this work corresponds to $C_{ij}=U\delta_{ij}$.
 The locality of the matrix emerges spontaneously from the response of the 2DEG but can also be helped by the presence of nearby metallic gates (see Fig.4 in \cite{Armagnat2019}).
 Previous work have studied the effect of the electron-electron interactions, at this level of approximation, inside a wire geometry and in the absence of magnetic field. It was found in particular that, as expected by bosonisation and Luttinger theory, the Fermi velocity gets renormalized into a (larger) Plasmon velocity. The calculated plasmon velocity agreed
@@ -345,21 +350,21 @@ quantitatively with what is obtained from (multichannel) Luttinger theory and a 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Propagation of a pulse in a quasi-one dimensional geometry in the lowest Landau level}\label{sec:1D-Wire}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We start presenting our numerical results with a simple "wire" geometry corresponding
+We start presenting our numerical results with a simple ``wire" geometry corresponding
 to Fig. \ref{fig:system}(a). The goal is characterize the regime in which the simulations are performed and isolate the main effect of the interactions that will take place in the Mach-Zehnder, the renormalization of the velocity.
 
 \subsection{Characterization of the DC physics}
 We start with characterizing our wire before we send the pulse. Fig. \ref{fig:wire_bands}(a) shows the
-dispersion relation $E_n(k)$ of the Wire. We observes the usual Landau levels. We place the Fermi level so that a single chiral edge state is occupied. Fig. \ref{fig:wire_bands}(b) show the velocity
+dispersion relation $E_n(k)$ of the wire. We observes the usual Landau levels. We place the Fermi level so that a single chiral edge state is occupied. Fig. \ref{fig:wire_bands}(b) show the velocity
 $v_n(k)$ for the same bands. Formally, $v_n(k) = (1/\hbar) dE_n/dk$ but here the velocity is calculated directly using the eigenstate of the current operator \cite{Xavier2024}. A plot of the velocity $v_0(E)$ from the bottom of the lowest Landau level to the next one is shown in Fig. \ref{fig:wire_bands}(c) highlighting the velocity at the Fermi level $E_F$ and the velocity at $E_F+V_P$. We see that $V_P$ is sufficiently small in these numerics that the velocity can be effectively considered as constant (even though in the numerics its full energy dependence is fully taken into account).
 
 \begin{figure}[H]
-\includegraphics[width=\linewidth]{Plots/Wire-DC/dispersion_relation.pdf}
+\includegraphics[width=0.9\linewidth, height=1.1\linewidth]{Plots/Wire-DC/dispersion_relation.pdf}
 \caption{\label{fig:wire_bands}
-DC characterization of the wire model at $\phi_a=0.4$: dispersion relation.
+DC characterization of the wire model at $\phi_a=0.44$: dispersion relation.
 (a) Band dispersion $E_n(k)$ of the infinite electrodes for the three lowest Landau levels. The horizontal dashed line marks the Fermi level $E_F$.
 (b) The corresponding band dispersion velocity $v_n(k)$.
-(c) Same as (b) but versus energy for the lowest Landau level $v_0(E)$. }
+(c) Same as (b) but versus energy for the lowest Landau level $v_0(E)$. \pk{The left and the right red bars are respectively the bottom of the lowest and first Landau levels.}}
 \end{figure}
 
 The transmission $D_{10}$ and reflection $D_{00}$ probabilities versus energy (panel b)
@@ -368,10 +373,8 @@ and magnetic field (panel b) are shown respectively in Fig. \ref{fig:wire_DC_cha
 \begin{figure}[H]
 \centering\includegraphics[width=\linewidth]{Plots/Wire-DC/Hall_bar_&_transmission.pdf}
 \caption{\label{fig:wire_DC_characteristics} DC characteristics of the wire model: transmission. 
-(a) Colormap of the local current injected from contact $0$ at $E=-3.2$ and $\phi_a=0.44$. One clearly observes that the propagation takes place on the right edge. 
-(b) Transmission (green) and reflection (red, vanishing) probability of the wire versus energy at $\phi_a=0.44$. 
-(c) Transmission and reflection probability versus magnetic field $\phi_a$ at $E=-3.2$.
-}
+(a) Transmission (green) and reflection (red, vanishing) probability of the wire versus energy at $\phi_a=0.44$. 
+(b) Transmission and reflection probability versus magnetic field $\phi_a$ at $E=-3.2$. \pk{Inset: Colormap of the local current density injected from contact $0$ at $E=-3.2$ and $\phi_a=0.44$. One clearly observes that the propagation takes place on the right edge.}} 
 \end{figure}
 
 
@@ -386,11 +389,10 @@ which corresponds to the renormalized velocity characteristic of Luttinger liqui
 \includegraphics[height=\linewidth, angle=90]{Plots/Wire-AC/bar_and_U_profile.pdf}
 \includegraphics[width=\linewidth]{Plots/Wire-AC/current_2D.pdf}
 \caption{\label{fig:wire_AC_characteristics}
-Propagation of a voltage pulse through the wire: current. 
+Propagation of a voltage pulse inside the wire model \ref{sec:1D-Wire}. 
 (a) Schematic of the wire with the three positions where the current is recorded.
-(b) Profile of the interaction $U(x)$: in order to avoid backscattering due to an abrupt switch on of the interaction, the interaction is switched on adiabatically over a lenght of  $200$ sites.
-(c) Current versus time $t$ at the three positions shown in (a) (respectively blue, green, red) with (full lines, $U=10$) and withou (dotted lines, $U=0$) interaction.
-}
+(b) Profile of the interaction $U(x)$: in order to avoid backscattering due to an abrupt switch on of the interaction, the interaction is switched on adiabatically over a length of  $200$ sites.
+(c) Current versus time $t$ at the three positions shown in (a) (respectively blue, green, red) with (full lines, $U=10$) and without (dotted lines, $U=0$) interaction.}
 \end{figure}
 
 The propagation can also be monitored at the level of the electronic density,
@@ -405,7 +407,7 @@ velocity provided by the band structure.
 \centering\includegraphics[width=\linewidth]{Plots/Wire-AC/density_vs_site.pdf}
 \caption{\label{fig:wire_pulse}
 Propagation of a voltage pulse through the wire: electronic density.
-(a) Colormap of the density $\rho(x,y)$ at different times with (right) and without (left interaction. 
+(a) Colormap of the density $\rho(x,y)$ at different times with (right) and without (left)  interaction. 
 (b) Same data but the density is integrated across the transverse direction $y$ without 
 (dashed) and with (full line, $U=10$) interaction.
 The different curves $\rho_t(x)=\sum_y \rho(x,y,t)$ are translated vertically by a shift proportional to the time $t$. 
@@ -418,7 +420,7 @@ With respect to \cite{Kloss2018}, we have two modifications to operate: first,
 the edge state is chiral so we have only forward propagation to account for instead of the
 forward and backward densities. Second, the edge state has a finite width $l$ instead of the purely one-dimensional case of \cite{Kloss2018}. One arrives at a Liouville equation of the form
 \begin{equation}
-\partial_t \rho(x,t) + \left(v_F + \frac{U}{2\pi l} \right) \partial_x \rho(x,t)
+\partial_t \rho(x,t) + \left(v_F + \frac{U}{2\pi l} \right) \partial_x \rho(x,t) = 0
 \end{equation}
 so that the velocity is given by a simple linear form
 \begin{equation}
@@ -448,11 +450,10 @@ and reaches a maximum $V_i=V_g$ in the center of the constriction, see Fig. \ref
 \begin{figure}[H]
 \includegraphics[width=0.48\linewidth]{Plots/QPC-DC/edge_state_single_qpc.pdf}\includegraphics[width=0.48\linewidth]{Plots/QPC-AC/QPC_potential.pdf}\\ \includegraphics[width=\linewidth]{Plots/QPC-DC/transmission_vs_energy.pdf}
 \caption{\label{fig:QPC_DC_characteristics}
-DC characteristics of the QPC model at $\phi_a=0.4$. 
+DC characteristics of the QPC model at $\phi_a=0.44$. 
 (a) Colormap of the Current density in the QPC injected from contact $0$. 
 (b) Colormap of the potential in the QPC. The potential is maximal with value $V_g$ at the center of the QPC and decays smoothly away from it; 
-(c) Transmission from contact $0$ to the three contacts $0$ (blue), $1$ (green) and $2$ (orange) versus energy $E$. The gate potential $V_g$ has been tuned so that the QPC works as a beam splitter $D_{10}=D_{20}=1/2$ at the Fermi energy $E_F=-3.2$.
-}
+(c) Transmission from contact $0$ to the three contacts $0$ (blue), $1$ (green) and $2$ (orange) versus energy $E$. The gate potential $V_g$ has been tuned so that the QPC works as a beam splitter $D_{10}=D_{20}=1/2$ at the Fermi energy $E_F=-3.2$.}
 \end{figure}
 
 The current versus time at the three contacts is shown in fig. \ref{fig:QPC_AC_characteristics}(a) while fig. \ref{fig:QPC_AC_characteristics}(b) shows the corresponding snapshots of the excess density at various times. Without interaction, the pulse is cleanly split between the transmitted part to contact 1 and 2 indicating that the pulse amplitude is small enough for the non-linearities of the QPC to play a minor role.
@@ -467,8 +468,7 @@ Fig. \ref{fig:QPC_AC_characteristics}. Besides the small secondary peak, we obse
 Pulse injection inside the QPC model.
 (a) Current $I(t)$ measured at contact $0$ (blue), $1$ (green) and $2$ (red)
  without ($U=0$, dotted line) and with interaction ($U=4$, full line) after injection of a pulse at contact $0$.
-(b) Colormap of the electronic density at various times without (upper panels) and with (lower panels) interaction.
-}
+(b) Colormap of the electronic density at various times without (upper panels) and with (lower panels) interaction.}
 \end{figure}
 
 \section{Simulations of the full Mach-Zehnder interferometer}
@@ -476,8 +476,8 @@ Pulse injection inside the QPC model.
 We are now ready to put all the pieces together and perform the simulations of the full MZI device. First, we check the validity of Eq.\eqref{eq:dc_mzi} in the DC regime. In the numerics (as in actual experiments), we use a uniform magnetic field $\phi_a$ which enters into Eq.\eqref{eq:dc_mzi} in two vastly different scales: the flux $\Phi = \phi_a N_{\text{hole}}$ varies very rapidly with $\phi_a$. Here $N_{\text{hole}} \approx 10,000$
 is the number of sites circonvoluted by the two interfering paths \emph{including} the
 hole in the center of the sample. A variation of $\phi_a$ of $\pm 0.01$ is sufficient to change the interference from fully destructive to fully constructive as shown in Fig. \ref{fig:MZI_DC_characteristics}
-The second role of the magnetic field, at a much larger scale, is to set the quantum Hall
-effect, the width of the edge states...It follows that e.g. $D_A(\phi_a)$ and 
+The second role of the magnetic field, at a much larger scale, is to set the system in the quantum Hall
+effect and hence define the width of the edge states. It follows that e.g. $D_A(\phi_a)$ and 
 $D_B(\phi_a)$ have a slow variation with $\phi_a$ that sets the envelop of the interference pattern between $D_-(\phi_a)$ and $D_+(\phi_a)$ defined as,
 \begin{equation}
 \label{eq:envelop}
@@ -508,7 +508,7 @@ and contact $1$ (panel f).
 Fig. \ref{fig:MZI_DC_characteristics}(d) show the MZI DC transmission $D^\text{MZI}$ versus $\phi_a$. At this scale the interference oscillate very fast and are almost blurred but we can check that the curves
  $D_\pm(\phi_a)$, calculated separately, do match the envelop of the envelop of the full calculation. The zoom shown in Fig. \ref{fig:MZI_DC_characteristics}(g) also shows $D_\text{tot}$ from Eq.\eqref{eq:dc_mzi} 
 which matches the numerics precisely. However, in Fig. \ref{fig:MZI_DC_characteristics}(d), the value of $N_{\text{hole}}$
-has been fitted to match the period of the oscillations of $D^\text{MZI}_{10}$. The obtained value of $N_{\text{hole}}\approx 10,000$ is larger than the one obtained by simply looking at the geometry of the sample $N_{\text{hole}}\approx 2,500$. This discrepancy is due to our value of $\phi_a\approx 0.44$ being too large to be fully in the continuum limit so that Peierls substitution (strictly speaking valid for $\phi_a\ll 1$) introduces some deviations. We have checked explicitly by running simulations on bigger systems (feasible in DC but not for time-dependent simulations) that this discrepancy disappears as soon as the number of sites (at fixed physical system) is made four times larger. Fig. \ref{fig:MZI_DC_characteristics}(a),(b),(c) and (e),(f) shows snapshots of the current density, injected from the different contacts (blue for contact 0, green for contact 1 and orange for contact 2) at various values of the magnetic field corresponding to constructive, destructive and mixed interferences (blue snapshots). The entire picture is fully consistent with our understanding of this device working as an electronic Mach-Zehnder interferometer.
+has been fitted to match the period of the oscillations of $D^\text{MZI}_{10}$. The obtained value of $N_{\text{hole}}\approx 10000$ is larger than the one obtained by simply looking at the geometry of the sample $N_{\text{hole}}\approx 2500$. This discrepancy is due to our value of $\phi_a\approx 0.44$ being too large to be fully in the continuum limit so that Peierls substitution (strictly speaking valid for $\phi_a\ll 1$) introduces some deviations. We have checked explicitly by running simulations on bigger systems (feasible in DC but not for time-dependent simulations) that this discrepancy disappears as soon as the number of sites (at fixed physical system) is made four times larger. Fig. \ref{fig:MZI_DC_characteristics}(a),(b),(c) and (e),(f) shows snapshots of the current density, injected from the different contacts (blue for contact 0, green for contact 1 and orange for contact 2) at various values of the magnetic field corresponding to constructive, destructive and mixed interferences (blue snapshots). The entire picture is fully consistent with our understanding of this device working as an electronic Mach-Zehnder interferometer.
 
 We now turn to the actual pulse propagation through the device. Snapshots of the excess density at different times are shown in Fig. \ref{fig:MZI_pulse} without (panel a) and with (panel b, $U=4$)
 interaction. We observe the propagation of the pulse in the lower and upper arms. With interaction, the situation is a little fuzzy due to the interacting effects at the QPC studied in the preceding section but global picture is the same with a long transient regime where the pulse has already gone through the lower arms but is still traveling
@@ -517,7 +517,7 @@ through the upper one. At a quantitative level, the current passing through cont
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{Plots/MZ-AC/Current_density_U0_vs_U4.pdf}
 \caption{\label{fig:MZI_pulse} 
-Colormap of the electronic density $\rho(x,y,t)$ within the MZI geometry after injection of a pulse at contact $0$. Upper panels: $U=0$, lower panels: $U=4$.}
+Colormap of the electronic density $\rho(x,y,t)$ within the MZI geometry after injection of a pulse at contact $0$. Upper panels: $U=0$, lower panels: $U=4$.} 
 \end{figure}
 
 We observe that the effect of switching on the interaction is two-folds: first, the position of the peaks is translated to the left. This is to be expected from the renormalization of the plasmon velocity discussed in section \ref{sec:pulse_vel}. Second, the shape of these peaks is modified, 
@@ -571,7 +571,7 @@ or even in more exotic fractions. Last, a systematic comparison between the simu
 
 \section{Acknowledgments}
 
-P.K., T.K. and X.W. acknowledge funding from the European Union’s Horizon 2020 research and innovation program under Grant agreement No. 862683 (UltraFastNano), from the French ANR DADDI and T-KONDO and from State aid managed by the Agence Nationale de la Recherche under the France 2030 program, reference ANR-22-PETQ-0012 (EQUBITFLY). T.K. greatly appreciates the hospitality of C. Bauerle in his group. We thank him as well as S. Ouacel, L. Mazzella, M. Aluffi and T. Vasselon for interesting discussions.
+P.K., T.K. and X.W. acknowledge funding from the European Union’s Horizon 2020 research and innovation program under Grant agreement No. 862683 (UltraFastNano), from the French ANR DADDI and T-KONDO and from State aid managed by the Agence Nationale de la Recherche under the France 2030 program, reference ANR-22-PETQ-0012 (EQUBITFLY). T.K. greatly appreciates the hospitality of C. Bauerle in his group. 
 
 \bibliography{mean_field}
 
